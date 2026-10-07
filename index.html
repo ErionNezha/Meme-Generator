@@ -1,0 +1,282 @@
+<!-- Created by Erion Nezha — © 2026 All rights reserved -->
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gjenerator Memesh — Erion Nezha</title>
+<meta name="description" content="Krijo meme qesharake me shabllone të vizatuara, tekstin tënd sipër/poshtë — ose ngarko foton tënde.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<style id="appcss">
+/* ============ ERION NEZHA · ULTRA-PREMIUM THEME (shared) ============ */
+:root{
+  --bg0:#070b16; --bg1:#0b1124; --gold:#D4AF37; --gold2:#f3dd8f;
+  --ink:#eef1f7; --mut:#9aa3b8; --glass:rgba(255,255,255,.055);
+  --line:rgba(212,175,55,.22); --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  background:var(--bg0); color:var(--ink); min-height:100vh; overflow-x:hidden;
+}
+.bg-orbs{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.bg-orbs span{position:absolute;border-radius:50%;filter:blur(90px);opacity:.28;animation:drift 14s ease-in-out infinite alternate}
+.bg-orbs span:nth-child(1){width:520px;height:520px;left:-140px;top:-120px;background:radial-gradient(circle,#D4AF37,transparent 65%)}
+.bg-orbs span:nth-child(2){width:620px;height:620px;right:-180px;top:30%;background:radial-gradient(circle,#2b3f8f,transparent 65%);animation-delay:-5s}
+.bg-orbs span:nth-child(3){width:460px;height:460px;left:20%;bottom:-160px;background:radial-gradient(circle,#6b4fa1,transparent 65%);animation-delay:-9s}
+@keyframes drift{to{transform:translate(60px,40px) scale(1.12)}}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+.site-header{padding:64px 0 30px;text-align:center}
+.overline{letter-spacing:.42em;font-size:11px;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.site-header h1{font-size:clamp(30px,5vw,52px);font-weight:800;line-height:1.15;
+  background:linear-gradient(120deg,#fff 20%,var(--gold2) 55%,var(--gold) 80%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.site-header p{color:var(--mut);max-width:640px;margin:14px auto 0;font-size:16px;line-height:1.65}
+.live-badge{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:8px 18px;border-radius:999px;
+  border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(10px);font-size:13px;color:var(--gold2);letter-spacing:.08em}
+.live-badge i{width:9px;height:9px;border-radius:50%;background:#3ddc84;box-shadow:0 0 12px #3ddc84;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.demo-wrap{margin:26px 0 54px}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:var(--r);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);padding:30px}
+.code-section{margin:0 0 60px}
+.code-section h2{font-size:24px;margin-bottom:6px}
+.code-section .sub{color:var(--mut);font-size:14px;margin-bottom:18px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:0;align-items:center}
+.ctab{padding:10px 22px;border-radius:12px 12px 0 0;border:1px solid var(--line);border-bottom:none;cursor:pointer;
+  background:rgba(255,255,255,.03);color:var(--mut);font-size:14px;font-weight:600;letter-spacing:.04em;transition:.25s}
+.ctab.active{background:linear-gradient(180deg,rgba(212,175,55,.22),rgba(212,175,55,.06));color:var(--gold2)}
+.ctab:hover{color:var(--ink)}
+#copyBtn{margin-left:auto;padding:9px 20px;border-radius:10px;border:1px solid var(--line);cursor:pointer;
+  background:linear-gradient(120deg,var(--gold),#a8842a);color:#0a0e1a;font-weight:700;font-size:13px;transition:.25s}
+#copyBtn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(212,175,55,.35)}
+.codebox{border:1px solid var(--line);border-radius:0 14px 14px 14px;overflow:hidden;background:#0d1326}
+.codebox pre{margin:0;max-height:560px;overflow:auto}
+.codebox pre code{display:block;padding:22px;font-family:"Cascadia Code","Fira Code",Consolas,monospace;font-size:13.5px;line-height:1.7;background:transparent}
+.codebox pre::-webkit-scrollbar{width:10px;height:10px}
+.codebox pre::-webkit-scrollbar-thumb{background:rgba(212,175,55,.35);border-radius:8px}
+footer{text-align:center;padding:34px 20px 44px;color:var(--mut);font-size:14px;border-top:1px solid rgba(212,175,55,.14)}
+footer strong{color:var(--gold2)}
+/* ============ APP CSS (per projekt) ============ */
+.mg-head{text-align:center;margin-bottom:20px}
+.mg-title{font-size:26px;margin-bottom:8px}
+.mg-note{color:var(--mut);font-size:14px;max-width:560px;margin:0 auto;line-height:1.6}
+.mg-templates{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px}
+.mg-tpl{border-radius:14px;padding:18px 10px;text-align:center;cursor:pointer;border:2px solid transparent;
+  transition:transform .2s,border-color .2s,box-shadow .2s;color:#fff}
+.mg-tpl:hover{transform:translateY(-4px)}
+.mg-tpl.sel{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.35),0 12px 28px rgba(0,0,0,.4)}
+.mg-tpl .mg-emoji{font-size:52px;display:block;line-height:1.2;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
+.mg-tpl .mg-name{font-size:13px;font-weight:700;margin-top:8px;text-shadow:0 2px 6px rgba(0,0,0,.6);display:block}
+.mg-controls{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.mg-field{display:flex;flex-direction:column;gap:7px;font-size:13.5px;color:var(--mut)}
+.mg-field b{color:var(--gold2)}
+.mg-field input[type=text]{padding:11px 14px;border-radius:10px;border:1px solid var(--line);
+  background:rgba(255,255,255,.05);color:var(--ink);font-size:14px;outline:none;transition:.2s}
+.mg-field input[type=text]:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.2)}
+.mg-field input[type=range]{accent-color:#D4AF37;cursor:pointer}
+.mg-field input[type=color]{width:52px;height:38px;border:1px solid var(--line);border-radius:8px;background:none;padding:2px;cursor:pointer}
+.mg-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:20px}
+.mg-btn{padding:10px 20px;border-radius:10px;border:1px solid var(--line);cursor:pointer;font-size:14px;font-weight:700;
+  background:rgba(255,255,255,.05);color:var(--ink);transition:.2s}
+.mg-btn:hover{background:rgba(212,175,55,.18);transform:translateY(-1px)}
+.mg-btn.mg-gold{background:linear-gradient(120deg,#D4AF37,#a8842a);color:#0a0e1a;border:none}
+.mg-btn.mg-gold:hover{box-shadow:0 8px 22px rgba(212,175,55,.35)}
+.mg-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.mg-canvas-wrap{display:flex;justify-content:center}
+#mgCanvas{width:100%;max-width:460px;height:auto;border-radius:14px;border:1px solid var(--line);
+  box-shadow:0 24px 60px rgba(0,0,0,.5)}
+@media(max-width:640px){.mg-controls{grid-template-columns:1fr}}
+@media(max-width:640px){.glass{padding:20px}.site-header{padding:44px 0 22px}}
+</style>
+</head>
+<body>
+<div class="bg-orbs"><span></span><span></span><span></span></div>
+
+<header class="site-header wrap">
+  <div class="overline">Erion Nezha · Web Projects</div>
+  <h1>Gjenerator Memesh</h1>
+  <p>Krijo meme qesharake me shabllone të vizatuara, tekstin tënd sipër/poshtë — ose ngarko foton tënde.</p>
+  <div class="live-badge"><i></i> LIVE DEMO</div>
+</header>
+
+<main class="wrap">
+  <section class="demo-wrap">
+    <div class="glass" id="demo">
+<div class="mg-head">
+  <h2 class="mg-title">😂 Gjenerator Memesh</h2>
+  <p class="mg-note">Demo lokale — memet krijohen në shfletuesin tënd, asgjë nuk ngarkohet online.</p>
+</div>
+<div class="mg-templates" id="mgTemplates"></div>
+<div class="mg-controls">
+  <label class="mg-field"><span>Teksti sipër</span>
+    <input type="text" id="mgTop" maxlength="80" placeholder="p.sh. KUR THOTË SE DO FLEJË HERËT">
+  </label>
+  <label class="mg-field"><span>Teksti poshtë</span>
+    <input type="text" id="mgBottom" maxlength="80" placeholder="p.sh. EDHE UNË BESOJ TE DRAKOJT">
+  </label>
+  <label class="mg-field"><span>Madhësia e shkronjave: <b id="mgSizeVal">56</b> px</span>
+    <input type="range" id="mgSize" min="24" max="120" value="56">
+  </label>
+  <label class="mg-field"><span>Ngjyra e tekstit</span>
+    <input type="color" id="mgColor" value="#ffffff">
+  </label>
+</div>
+<div class="mg-actions">
+  <button class="mg-btn" id="mgUpload">🖼️ Ngarko foton tënde</button>
+  <button class="mg-btn mg-ghost" id="mgClearPhoto" disabled>✖️ Hiq foton</button>
+  <button class="mg-btn mg-gold" id="mgDownload">⬇️ Shkarko PNG</button>
+  <input type="file" id="mgFile" accept="image/*" hidden>
+</div>
+<div class="mg-canvas-wrap">
+  <canvas id="mgCanvas" width="600" height="600"></canvas>
+</div>
+    </div>
+  </section>
+
+  <section class="code-section">
+    <h2>💻 Kodi Burim</h2>
+    <p class="sub">I gjithë kodi i këtij projekti — i lexueshëm, i kopjueshëm, gati për t'u mësuar.</p>
+    <div class="tabs">
+      <button class="ctab active" data-tab="html">HTML</button>
+      <button class="ctab" data-tab="css">CSS</button>
+      <button class="ctab" data-tab="js">JavaScript</button>
+      <button id="copyBtn">Kopjo kodin</button>
+    </div>
+    <div class="codebox"><pre><code id="codeView" class="language-html"></code></pre></div>
+  </section>
+</main>
+
+<footer>Krijuar nga <strong>Erion Nezha</strong> · © 2026 — Të gjitha të drejtat e rezervuara</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script id="appjs">
+(function(){
+  var canvas=document.getElementById('mgCanvas'),ctx=canvas.getContext('2d');
+  var T=[
+    {name:'PO / JO',emoji:'\uD83E\uDD14',g:['#1e3a8a','#3b82f6']},
+    {name:'Truri',emoji:'\uD83E\uDDE0',g:['#7c2d12','#f97316']},
+    {name:'Bretkosa',emoji:'\uD83D\uDC38',g:['#14532d','#22c55e']},
+    {name:'Kllouni',emoji:'\uD83E\uDD21',g:['#7f1d1d','#ef4444']},
+    {name:'I forti',emoji:'\uD83D\uDCAA',g:['#3b0764','#a855f7']},
+    {name:'Tmerr',emoji:'\uD83D\uDE31',g:['#0f172a','#64748b']}
+  ];
+  var cur=0,photo=null;
+  var topI=document.getElementById('mgTop'),botI=document.getElementById('mgBottom'),
+      sizeI=document.getElementById('mgSize'),sizeV=document.getElementById('mgSizeVal'),
+      colI=document.getElementById('mgColor'),
+      clearBtn=document.getElementById('mgClearPhoto');
+
+  var box=document.getElementById('mgTemplates');
+  T.forEach(function(t,i){
+    var d=document.createElement('div');
+    d.className='mg-tpl'+(i===0?' sel':'');
+    d.style.background='linear-gradient(135deg,'+t.g[0]+','+t.g[1]+')';
+    d.innerHTML='<span class="mg-emoji">'+t.emoji+'</span><span class="mg-name">'+t.name+'</span>';
+    d.setAttribute('role','button');d.setAttribute('tabindex','0');
+    d.setAttribute('aria-label','Shablloni '+t.name);
+    function pick(){cur=i;photo=null;clearBtn.disabled=true;
+      var cs=box.children;for(var k=0;k<cs.length;k++)cs[k].classList.toggle('sel',k===i);render();}
+    d.addEventListener('click',pick);
+    d.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();}});
+    box.appendChild(d);
+  });
+
+  function wrapLines(text,maxW){
+    var words=(text||'').toUpperCase().split(/\s+/).filter(Boolean);
+    var lines=[],line='';
+    words.forEach(function(w){
+      var t=line?line+' '+w:w;
+      if(ctx.measureText(t).width>maxW&&line){lines.push(line);line=w;}
+      else line=t;
+    });
+    if(line)lines.push(line);
+    return lines;
+  }
+  function render(){
+    var W=canvas.width,H=canvas.height,t=T[cur];
+    ctx.clearRect(0,0,W,H);
+    if(photo){
+      var ir=photo.width/photo.height,cr=W/H,sw,sh,sx,sy;
+      if(ir>cr){sh=photo.height;sw=sh*cr;sx=(photo.width-sw)/2;sy=0;}
+      else{sw=photo.width;sh=sw/cr;sx=0;sy=(photo.height-sh)/2;}
+      ctx.drawImage(photo,sx,sy,sw,sh,0,0,W,H);
+      ctx.fillStyle='rgba(0,0,0,.25)';ctx.fillRect(0,0,W,H);
+    }else{
+      var gr=ctx.createLinearGradient(0,0,W,H);
+      gr.addColorStop(0,t.g[0]);gr.addColorStop(1,t.g[1]);
+      ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
+      ctx.font='220px "Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif';
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(t.emoji,W/2,H/2+10);
+    }
+    var fs=parseInt(sizeI.value,10);
+    ctx.font='900 '+fs+'px Impact,"Arial Black",Arial,sans-serif';
+    ctx.textAlign='center';ctx.textBaseline='top';
+    ctx.lineWidth=Math.max(3,fs/7);
+    ctx.strokeStyle='#000';ctx.fillStyle=colI.value;
+    ctx.lineJoin='round';
+    var maxW=W-40;
+    var top=wrapLines(topI.value,maxW),bot=wrapLines(botI.value,maxW);
+    var y=24;
+    top.forEach(function(l){ctx.strokeText(l,W/2,y);ctx.fillText(l,W/2,y);y+=fs*1.15;});
+    y=H-24-bot.length*fs*1.15;
+    bot.forEach(function(l){ctx.strokeText(l,W/2,y);ctx.fillText(l,W/2,y);y+=fs*1.15;});
+  }
+  [topI,botI].forEach(function(el){el.addEventListener('input',render);});
+  sizeI.addEventListener('input',function(){sizeV.textContent=sizeI.value;render();});
+  colI.addEventListener('input',render);
+
+  var fileI=document.getElementById('mgFile');
+  document.getElementById('mgUpload').addEventListener('click',function(){fileI.click();});
+  fileI.addEventListener('change',function(){
+    var f=fileI.files&&fileI.files[0];if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      var img=new Image();
+      img.onload=function(){photo=img;clearBtn.disabled=false;render();};
+      img.src=r.result;
+    };
+    r.readAsDataURL(f);
+    fileI.value='';
+  });
+  clearBtn.addEventListener('click',function(){photo=null;clearBtn.disabled=true;render();});
+  document.getElementById('mgDownload').addEventListener('click',function(){
+    var a=document.createElement('a');
+    a.href=canvas.toDataURL('image/png');
+    a.download='meme.png';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+  });
+  render();
+})();
+</script>
+<script>
+(function(){
+  var tabs={
+    html:{lang:"html",get:function(){return document.getElementById("demo").innerHTML.trim();}},
+    css:{lang:"css",get:function(){return document.getElementById("appcss").textContent.trim();}},
+    js:{lang:"javascript",get:function(){return document.getElementById("appjs").textContent.trim();}}
+  };
+  var view=document.getElementById("codeView"),cur="html";
+  function render(){
+    view.textContent=tabs[cur].get();
+    view.className="language-"+tabs[cur].lang;
+    if(window.hljs){delete view.dataset.highlighted;hljs.highlightElement(view);}
+    var bs=document.querySelectorAll(".ctab");
+    for(var i=0;i<bs.length;i++)bs[i].classList.toggle("active",bs[i].dataset.tab===cur);
+  }
+  var bs=document.querySelectorAll(".ctab");
+  for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){cur=this.dataset.tab;render();});
+  document.getElementById("copyBtn").addEventListener("click",function(){
+    var b=this,code=tabs[cur].get();
+    function done(t){b.textContent=t;setTimeout(function(){b.textContent="Kopjo kodin";},1600);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(function(){done("U kopjua ✓");},function(){done("Dështoi");});}
+    else{var ta=document.createElement("textarea");ta.value=code;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done("U kopjua ✓");}catch(e){done("Dështoi");}document.body.removeChild(ta);}
+  });
+  render();
+})();
+</script>
+</body>
+</html>
